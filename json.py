@@ -20,39 +20,38 @@ img0 = cv2.imread(os.path.join(rgbPath,rgbFiles[0]))
 height = img0.shape[0]
 width = img0.shape[1]
 
-#buka file json
-jsonf = open(os.path.join(jsonPath,jsonFiles[0]))
+for item in jsonFiles:
+    #menambahkan background
+    img = np.zeros((height, width, 3), dtype = "uint8")
+    # print(item)
+ 
+    #buka file json
+    jsonf = open(os.path.join(jsonPath,item))
 
-point = []
+    #parsing data json
+    data = json.loads(jsonf.read())
 
-#parsing data json
-data = json.loads(jsonf.read())
+    #mengambil points yang ada di json
+    point = []
+    # for points in data['objects'][1]['points']['exterior']:
+    #     point.append(points)
 
-#mengambil points yang ada di json
-for points in data['objects'][1]['points']['exterior']:
-    point.append(points)
+    # #membuat polygon dari points
+    # polygon = np.array(point, np.int32)
 
-#menambahkan background
-img = np.zeros((height, width, 3), dtype = "uint8")
+    # #membuat polygon warna putih dalam background gambar
+    # polyImage = cv2.fillConvexPoly(img, polygon, (255,255,255))
 
-#membuat polygon dari points
-polygon = np.array(point, np.int32)
+    #menampilkan gambar
+    # cv2.imshow("RGB", img0)
+    # cv2.imshow("BW", polyImage)
 
-triangle = np.array([[[240, 130], [380, 230], [190, 280]]], np.int32)
+    #memberi nama untuk bw jpg, dengan mengurangi 5 huruf terakhir dari json file
+    bwFile = item[:-5]
 
-#membuat polygon warna putih dalam background gambar
-polyImage = cv2.fillConvexPoly(img, polygon, (255,255,255))
-polyImage = cv2.fillConvexPoly(img, triangle, (255,255,255))
+    cv2.imwrite(bwPath + bwFile, img)
+    
+    print(bwFile + " berhasil ditambahkan")
 
-#menampilkan gambar
-# cv2.imshow("RGB", img0)
-# cv2.imshow("BW", polyImage)
-
-#memberi nama untuk bw jpg, dengan mengurangi 5 huruf terakhir dari json file
-bwFile = jsonFiles[0][:-5]
-print(jsonFiles[0][:-5] + " berhasil ditambahkan")
-
-cv2.imwrite(bwPath + bwFile, polyImage)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

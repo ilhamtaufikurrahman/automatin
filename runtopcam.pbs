@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N "esaTopCamFold3"
+#PBS -q gpu
+#PBS -l walltime=72:00:00
+#PBS -l nodes=1:ppn=32
+#PBS -k oe
+#PBS -m ae
+#PBS -M esa.prakasa@gmail.com
+
+### Go to 'your home' dir
+cd $PBS_O_WORKDIR
+
+module load anaconda/3-cpu
+
+### Run the script!
+
+echo "Hostname = $HOSTNAME"
+echo "Number of nodes = $NP"
+echo "Start = `date`"
+python unetTopCam3.py
+echo "Finish = `date`"
+echo "Job has been completed"

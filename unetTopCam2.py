@@ -18,8 +18,8 @@ IMG_HEIGHT = 256
 IMG_CHANNELS = 3
 n_classes = 2
 
-TRAIN_PATH = r'/home/ngu0270181/unettopcam/nFold3/train/'
-TEST_PATH = r'/home/ngu0270181/unettopcam/nFold3/test/'
+TRAIN_PATH = r'/home/ngu0270181/unettopcam/nFold2/train/'
+TEST_PATH = r'/home/ngu0270181/unettopcam/nFold2/test/'
 
 train_ids = next(os.walk(TRAIN_PATH))[1]
 test_ids = next(os.walk(TEST_PATH))[1]
@@ -219,7 +219,7 @@ imTest = np.zeros((IMG_WIDTH,IMG_HEIGHT,3),dtype=np.uint8)
 imgIdx = 2
 
 
-pathToSave = r'/home/ngu0270181/unettopcam/result3'
+pathToSave = r'/home/ngu0270181/unettopcam/result2'
 
 
 maskFileList = os.listdir(TEST_PATH)
